@@ -421,8 +421,8 @@ export function load({ locals }) {
 Top-level promises will be awaited, which makes it easy to return multiple promises without creating a waterfall:
 
 ```js
-/// file: src/routes/+page.server.js
-/** @type {import('./$types').PageServerLoad} */
+/// file: src/routes/+page.js
+/** @type {import('./$types').PageLoad} */
 export function load() {
 	return {
 		a: Promise.resolve('a'),
@@ -444,6 +444,8 @@ export function load() {
 	console.log(data.c.value); // `Promise {...}`
 </script>
 ```
+Note: nested, un-awaited promises cannot be returned from `+page.server.ts` as Promises cannot be serialized to the client.
+
 
 ## Parallel loading
 
